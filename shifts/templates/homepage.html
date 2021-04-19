@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% for shift in shifts %}
+    <tr>
+        <td>{{ shift.driver_name }}</td>
+        <td>{{ shift.eq_type }}</td>
+    </tr>
+{% endfor %}
+<form method="POST">{% csrf_token %}
+    <input type="text" name="driver_name" value="driver_name">
+    <input type="text" name="company_name" value="company_name">
+    <input type="text" name="eq_type" value="eq_type">
+    <input type="text" name="clock_in" value="clock_in">
+    <input type="text" name="clock_out" value="clock_out">
+    <input type="number" name="km_driven" value="km_driven">
+    <input type="submit" name="send" value="send">
+</form>
+</body>
+</html>
