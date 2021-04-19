@@ -76,7 +76,7 @@ WSGI_APPLICATION = 'SEM.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql-psycopg2',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'shifts',
         'USER': 'postgres',
         'PASSWORD': 'bartek93',
