@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.views import View
+from django.views.generic import DeleteView, DetailView
 from shifts.models import Shift
 from django.http import HttpResponse
 
@@ -20,4 +21,9 @@ class HomePage(View):
                              clock_out_date=clock_out, km_driven=km_driven)
 
         return HttpResponse("record added")
+
+
+class ShiftView(DetailView):
+    model = Shift
+    template_name = "shift_view.html"
 
