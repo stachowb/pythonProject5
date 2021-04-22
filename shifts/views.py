@@ -1,14 +1,26 @@
 from django.shortcuts import render
 from django.views import View
 from django.views.generic import DeleteView, DetailView
-from shifts.models import Shift
+from .models import Shift
 from django.http import HttpResponse
+from django import forms
+from .forms import ShiftForm
 
 
-class HomePage(View):
-    def get(self, request):
-        shifts = Shift.objects.all()
-        return render(request, "homepage.html", {"shifts": shifts})
+
+def shift_create(request):
+    form = ShiftForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+
+    ctx = {'form': form}
+    return render(request, "shift_create.html", ctx )
+
+
+# class HomePage(View):
+#     def get(self, request):
+#         shifts = Shift.objects.all()
+#         return render(request, "homepage.html", {"form": form})
 
     def post(self, request):
         driver_name = request.POST.get('driver_name')
@@ -23,7 +35,5 @@ class HomePage(View):
         return HttpResponse("record added")
 
 
-class ShiftView(DetailView):
-    model = Shift
-    template_name = "shift_view.html"
-
+class FileView(View):
+    pass

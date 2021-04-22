@@ -16,8 +16,7 @@ class Shift(models.Model):
     clock_out_date = models.DateTimeField(max_length=60)
     km_driven = models.IntegerField(default=0)
 
-    @property
-    def shift_length(self):
-        return self.clock_out_date - self.clock_in_date
-
+    def save(self, *args, **kwargs):
+        self.shift_length = self.clock_out_date - self.clock_in_date
+        super(Shift, self).save(*args, **kwargs)
 
