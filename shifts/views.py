@@ -1,39 +1,40 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import View
 from django.views.generic import DeleteView, DetailView
 from .models import Shift
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from django import forms
-from .forms import ShiftForm
+from .forms import AddShiftForm
 
 
-
-def shift_create(request):
-    form = ShiftForm(request.POST or None)
-    if form.is_valid():
-        form.save()
-
-    ctx = {'form': form}
-    return render(request, "shift_create.html", ctx )
+class HomePage(View):
+    def get(self, request):
+        return render(request, "basic.html")
 
 
-# class HomePage(View):
-#     def get(self, request):
-#         shifts = Shift.objects.all()
-#         return render(request, "homepage.html", {"form": form})
+class ShiftList(View):
+    def get(self, request):
+        shifts = Shift.objects.all()
+        return render(request, "shift_list.html", {"shifts": shifts})
+
+
+class ShiftAdd(View):
+    def get(self, request):
+        form = AddShiftForm()
+        return render(request, "shift_add.html", {"form": form})
 
     def post(self, request):
-        driver_name = request.POST.get('driver_name')
-        company_name = request.POST.get('company_name')
-        eq_type = request.POST.get('eq_type')
-        clock_in = request.POST.get('clock_in')
-        clock_out = request.POST.get('clock_out')
-        km_driven = int(request.POST.get('km_driven'))
-        Shift.objects.create(driver_name=driver_name, company_name=company_name, eq_type=eq_type, clock_in_date=clock_in,
-                             clock_out_date=clock_out, km_driven=km_driven)
-
-        return HttpResponse("record added")
-
-
-class FileView(View):
-    pass
+        form = AddShiftForm(request.POST)
+        if form.is_valid():
+            driver_name = form.cleaned_data['driver_name']
+            company_name = form.cleaned_data["company_name"]
+            eq_type = form.cleaned_data["eq_type"]
+            clock_in_date = form.cleaned_data["clock_in_date"]
+            clock_out_date = form.cleaned_data["clock_out_date"]
+            km_driven = form.cleaned_data["km_driven"]
+            shift = Shift.objects.create(driver_name=driver_name, company_name=company_name, eq_type=eq_type,
+                                         clock_in_date=clock_in_date, clock_out_date=clock_out_date,
+                                         km_driven=km_driven)
+            shift.save()
+            return redirect("shift-list")
+        return HttpResponse("Error adding shift")
