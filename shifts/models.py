@@ -3,8 +3,8 @@ from datetime import datetime
 
 
 class Week(models.Model):
-    WEEK_LIST = ["Week " + str(x) for x in range(1, 53)]
-    week = models.CharField(choices=WEEK_LIST)
+    week = models.CharField
+    report = models.FileField()
 
 
 class Shift(models.Model):
@@ -21,7 +21,7 @@ class Shift(models.Model):
     clock_in_date = models.DateTimeField(max_length=60)
     clock_out_date = models.DateTimeField(max_length=60)
     km_driven = models.IntegerField(default=0)
-    week = models.ForeignKey(Week, on_delete=models.CASCADE)
+    week = models.ForeignKey(Week, on_delete=models.CASCADE, default=None)
 
 
 

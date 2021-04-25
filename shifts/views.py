@@ -10,3 +10,7 @@ from .forms import ShiftForm
 class HomePage(View):
     def get(self, request):
         return render(request, "basic.html")
+
+
+class ShiftsList(View):
+
