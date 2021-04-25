@@ -1,5 +1,5 @@
 from django.db import models
-
+from datetime import datetime
 
 class Shift(models.Model):
     driver_name = models.CharField(max_length=60)
@@ -16,7 +16,18 @@ class Shift(models.Model):
     clock_out_date = models.DateTimeField(max_length=60)
     km_driven = models.IntegerField(default=0)
 
+    def shift_length(self):
+        frt = '%d-%m-%Y %H:%M'
+
+        clock_in = datetime.strptime(self.clock_in_date, frt)
+        clock_out = datetime.strptime(self.clock_out_date, frt)
+
+        return clock_out - clock_in
+
     def save(self, *args, **kwargs):
-        self.shift_length = self.clock_out_date - self.clock_in_date
+        self.shift_length = self.shift_length()
+
         super(Shift, self).save(*args, **kwargs)
+
+
 
