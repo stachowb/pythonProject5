@@ -21,7 +21,6 @@ class Shift(models.Model):
     clock_in_date = models.DateTimeField(max_length=60)
     clock_out_date = models.DateTimeField(max_length=60)
     km_driven = models.IntegerField(default=0)
-    week = models.ForeignKey(Week, on_delete=models.CASCADE, default=None)
 
 
 
