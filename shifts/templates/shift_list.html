@@ -1,8 +1,13 @@
 {% extends "basic.html" %}
-
-
-
 {% block content %}
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-success" role="alert">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
     <button type="button" class="btn btn-success" href="shifts/add-shift/">Add Shift</button>
     <table class="table">
         <thead>
@@ -18,18 +23,18 @@
         </tr>
         </thead>
         <tbody>
-            {% for shift in shifts %}
-                <tr>
-                    <td>{{ shift.pk }}</td>
-                    <td>{{ shift.driver_name }}</td>
-                    <td>{{ shift.company_name }}</td>
-                    <td>{{ shift.eq_type }}</td>
-                    <td>{{ shift.clock_in_date }}</td>
-                    <td>{{ shift.clock_out_date }}</td>
-                    <td>{{ shift.km_driven }}</td>
-                    <td></td>
-                </tr>
-            {% endfor %}
+        {% for shift in shifts %}
+            <tr>
+                <td>{{ shift.pk }}</td>
+                <td>{{ shift.driver_name }}</td>
+                <td>{{ shift.company_name }}</td>
+                <td>{{ shift.eq_type }}</td>
+                <td>{{ shift.clock_in_date }}</td>
+                <td>{{ shift.clock_out_date }}</td>
+                <td>{{ shift.km_driven }}</td>
+                <td></td>
+            </tr>
+        {% endfor %}
         </tbody>
     </table>
 {% endblock %}
