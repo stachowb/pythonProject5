@@ -3,13 +3,14 @@ from django.views import View
 from django.views.generic import DeleteView, DetailView
 from .models import Shift
 from django.http import HttpResponse, Http404
-from .forms import AddShiftForm
+from .forms import AddShiftForm, AddFileForm
 from django.contrib import messages
 
 
 class HomePage(View):
     def get(self, request):
-        return render(request, "basic.html")
+        form = AddFileForm(request.POST, request.FILES)
+        return render(request, "basic.html", {"form": form})
 
 
 class ShiftList(View):

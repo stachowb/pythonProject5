@@ -9,3 +9,7 @@ class AddShiftForm(forms.Form):
     clock_in_date = forms.CharField(max_length=60, label="Clock In")
     clock_out_date = forms.CharField(max_length=60, label="Clock Out")
     km_driven = forms.IntegerField(label="Kilometers")
+
+
+class AddFileForm(forms.Form):
+    file = forms.FileField()
