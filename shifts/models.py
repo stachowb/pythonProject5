@@ -2,9 +2,9 @@ from django.db import models
 from datetime import datetime
 
 
-class Week(models.Model):
-    week = models.CharField
-    report = models.FileField()
+class File(models.Model):
+    week = models.IntegerField()
+    file = models.FileField()
 
 
 class Shift(models.Model):
