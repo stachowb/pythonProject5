@@ -22,6 +22,7 @@ class ShiftList(View):
 class ShiftAdd(View):
     def get(self, request):
         form = AddShiftForm()
+        models = 
         return render(request, "shift_add.html", {"form": form})
 
     def post(self, request):
