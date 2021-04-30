@@ -16,13 +16,13 @@ class HomePage(View):
 class ShiftList(View):
     def get(self, request):
         shifts = Shift.objects.all()
-        return render(request, "shift_list.html", {"shifts": shifts})
+        return render(request, "shifts/shift_list.html", {"shifts": shifts})
 
 
 class ShiftAdd(View):
     def get(self, request):
         form = AddShiftForm()
-        return render(request, "shift_add.html", {"form": form})
+        return render(request, "shifts/shift_add.html", {"form": form})
 
     def post(self, request):
         form = AddShiftForm(request.POST)
